@@ -1,0 +1,705 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Méthodologie de développement MVC d'une application web PHP4">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/php4mvc-janvier-2004/une-demarche-de-developpement-mvc-en-webphp.html">
+      
+      
+        <link rel="prev" href="utiliser-larchitecture-mvc-dans-les-applications-webphp.html">
+      
+      
+        <link rel="next" href="un-controleur-generique.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>2. Une démarche de développement MVC en web/PHP - Méthodologie de développement MVC d'une application web PHP4</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Méthodologie de développement MVC d'une application web PHP4";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-une-demarche-de-developpement-mvc-en-webphp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Méthodologie de développement MVC d&#39;une application web PHP4" class="md-header__button md-logo" aria-label="Méthodologie de développement MVC d'une application web PHP4" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Méthodologie de développement MVC d'une application web PHP4
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Une démarche de développement MVC en web/PHP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Passer au mode sombre"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode sombre" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Passer au mode clair"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode clair" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/php4mvc-janvier-2004" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Méthodologie de développement MVC d&#39;une application web PHP4" class="md-nav__button md-logo" aria-label="Méthodologie de développement MVC d'une application web PHP4" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Méthodologie de développement MVC d'une application web PHP4
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/php4mvc-janvier-2004" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utiliser-larchitecture-mvc-dans-les-applications-webphp.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Utiliser l'architecture MVC dans les applications web/php
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="une-demarche-de-developpement-mvc-en-webphp.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Une démarche de développement MVC en web/PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="un-controleur-generique.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Un contrôleur générique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="une-application-dillustration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Une application d'illustration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><a id="refheading29948107341754"></a></p>
+<h1 id="2-une-demarche-de-developpement-mvc-en-webphp">2. Une démarche de développement MVC en web/PHP</h1>
+<p>Nous proposons ici une démarche pour le développement d&#x27;applications web/php respectant l&#x27;architecture MVC. Elle n&#x27;est là que pour ouvrir des pistes. Le lecteur l&#x27;adaptera à ses goûts et besoins.</p>
+<ol>
+<li>on commencera par définir toutes les vues de l&#x27;application. Celles-ci sont les pages web présentées à l&#x27;utilisateur. On se placera du point de vue de celui-ci pour dessiner les vues. On distingue trois types de vues :<ul>
+<li>le <strong>formulaire de saisie</strong> qui vise à obtenir des informations de l&#x27;utilisateur. Celui-ci dispose en général d&#x27;un bouton pour envoyer au serveur les informations saisies.</li>
+<li>la <strong>page de réponse</strong> qui ne sert qu&#x27;à donner de l&#x27;information à l&#x27;utilisateur. Celle-ci dispose souvent d&#x27;un ou de plusieurs liens permettant à l&#x27;utilisateur de poursuivre l&#x27;application avec une autre page.</li>
+<li>la <strong>page mixte</strong> : le contrôleur a envoyé au client une page contenant des informations qu&#x27;il a générées. Cette même page va servir au client pour fournir au contrôleur de nouvelles informations provenant de l&#x27;utilisateur.</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+  <li>Chaque vue donnera naissance à une page PHP. Pour chacune de celles-ci :
+    <ul>
+      <li>on dessinera l&#x27;aspect de la page
+      </li>
+      <li>on déterminera quelles sont les parties dynamiques de celle-ci :
+        <ul>
+          <li>les informations à destination de l&#x27;utilisateur qui devront être fournies par le contrôleur en paramètres à la vue PHP. Une solution simple est la suivante :
+            <ul>
+              <li>le contrôleur met dans un dictionnaire <b>$dReponse</b> les informations qu&#x27;il veut fournir à une vue V
+              </li>
+              <li>le contrôleur fait afficher la vue V. Si celle-ci correspond au fichier source <b>V.php</b>, cet affichage est obtenu simplement par l&#x27;instruction <b>include V.php</b>.
+              </li>
+              <li>l&#x27;inclusion précédente est une inclusion de code dans le contrôleur. Le dictionnaire <b>$dReponse</b> renseigné par celui-ci est accessible directement par le code de <b>V.php</b>.
+              </li>
+            </ul>
+          </li>
+          <li>les données de saisie qui devront être transmises au programme principal pour traitement. Celles-ci devront faire partie d&#x27;un formulaire HTML (<b>balise &lt;form&gt;</b>).
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<ol start="3">
+  <li>On pourra schématiser les E/S de chaque vue 
+  </li>
+</ol>
+
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000037500000083B3B63FBF.png" style="display:inline-block; margin:4px;width:11.709cm;height:1.734cm;" class="odt-zoomable" data-zoom-src="images/100000000000037500000083B3B63FBF.png" /></td></tr></table>
+
+<ul>
+  <li>les entrées sont les données que devra fournir le contrôleur à la page PHP
+  </li>
+  <li>les sorties sont les données que devra fournir la page PHP au contrôleur de l&#x27;aplication. Elles font partie d&#x27;un formulaire HTML et le contrôleur les récupèrera par une opération du type <b>$_GET[&quot;param&quot;]</b> (méthode GET) ou <b>$_POST[&quot;param&quot;]</b> (méthode POST).
+  </li>
+</ul>
+
+<ol start="4">
+  <li>Fréquemment la page finale envoyée au client n&#x27;est pas une vue mais une composition de vues. Par exemple, la page envoyée à un utilisateur peut avoir  la forme suivante :
+  </li>
+</ol>
+
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000023D0000010983D41FDC.png" style="display:inline-block; margin:4px;width:7.581cm;height:3.507cm;" class="odt-zoomable" data-zoom-src="images/100000000000023D0000010983D41FDC.png" /></td></tr></table>
+
+<p>La zone 1 peut être un bandeau de titre, la zone 2 un bandeau de menu, la zone 3 une zone de contenu. En PHP cette composition peut être obtenue par le code HTML/PHP suivant :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="x">&lt;table&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">    &lt;tr&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="x">        &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nx">zone1</span><span class="o">.</span><span class="nx">php</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="x">    &lt;/tr&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="x">    &lt;tr&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="x">        &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nx">zone2</span><span class="o">.</span><span class="nx">php</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="x">        &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nx">zone3</span><span class="o">.</span><span class="nx">php</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="x">    &lt;/tr&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="x">&lt;/table&gt;</span>
+</code></pre></div>
+<p>On peut rendre ce code dynamique en écrivant :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="x">&lt;table&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">    &lt;tr&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="x">        &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;urlZone1&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="x">    &lt;/tr&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="x">    &lt;tr&gt;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="x">        &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;urlZone2&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="x">        &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;urlZone3&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="x">    &lt;/tr&gt;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="x">&lt;/table&gt;</span>
+</code></pre></div>
+<p>Cette composition de vues peut être le format unique de la réponse faite à l&#x27;utilisateur. Dans ce cas, chaque réponse au client devra fixer les trois URL à charger dans les trois zones avant de faire afficher la page réponse. On peut généraliser cet exemple en imaginant qu&#x27;il y ait plusieurs modèles possibles pour la page de réponse. La réponse au client devra donc :</p>
+<ul>
+  <li>fixer le modèle à utiliser
+  </li>
+  <li>fixer les éléments à inclure dans celui-ci
+  </li>
+  <li>demander l&#x27;affichage du modèle
+  </li>
+</ul>
+
+<ol start="5">
+  <li>On écrira le code PHP/HTML de chaque modèle de réponse. Son code est généralement simple. Celui de l&#x27;exemple ci-desssus pourrait être :
+  </li>
+</ol>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="c1">// initialisations pour les tests sans contrôleur</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">...</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">?&gt;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">&lt;html&gt;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="x">    &lt;head&gt;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="x">      &lt;title&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;titre&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&lt;/title&gt;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="x">      &lt;link type=&quot;text/css&quot; href=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;style&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&quot; rel=&quot;stylesheet&quot; /&gt;    </span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="x">    &lt;/head&gt;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="x">  &lt;body&gt;      </span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="x">    &lt;table&gt;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="x">        &lt;tr&gt;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="x">            &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;urlZone1&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="x">        &lt;/tr&gt;</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="x">        &lt;tr&gt;</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="x">            &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;urlZone2&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="x">            &lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;urlZone3&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="x">        &lt;/tr&gt;</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="x">    &lt;/table&gt;</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="x">  &lt;body&gt;</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="x">&lt;/html&gt;</span>
+</code></pre></div>
+<p>On utilisera chaque fois que c&#x27;est possible une feuille de style afin de pouvoir changer le &quot;look&quot; de la réponse sans avoir à modifier le code PHP/HTML.</p>
+<ol start="6">
+  <li>On écrira le code PHP/HTML de chaque vue élémentaire. Il aura le plus souvent la forme suivante :
+  </li>
+</ol>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="c1">// éventuellement qqs initialisations notamment en phase de débogage</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="o">...</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">?&gt;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="x">&lt;balise&gt;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="x">...</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="x">        // on cherchera ici à minimiser le code php</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="x">&lt;/balise&gt;</span>
+</code></pre></div>
+<p>On notera qu&#x27;une vue élémentaire s&#x27;intègre dans un modèle. Son code HTML vient s&#x27;intégrer à l&#x27;intérieur du code de celui-ci. Le plus souvent, ce dernier intègre déjà les balises &lt;html&gt;, &lt;head&gt;, &lt;body&gt;. Il est donc peu fréquent de trouver ces balises dans une vue élémentaire.</p>
+<ol start="7">
+  <li>On peut procéder aux tests des différents modèles de réponse et vues élémentaires
+  </li>
+</ol>
+
+<ul>
+  <li>chaque modèle de réponse est testé. Si un modèle s&#x27;appelle <b>modele1.php</b>, on demandera avec un navigateur l&#x27;URL <b>http://localhost/chemin/modele1.php</b> Le modèle attend des valeurs du contrôleur. Ici on l&#x27;appelle directement et non via le contrôleur. Le modèle ne recevra pas les paramètres attendus. Afin que les tests soient néanmoins possibles on initialisera soi-même, avec des constantes, les paramètres attendus dans la page PHP du modèle.
+  </li>
+  <li>chaque modèle est testé ainsi que toutes les vues élémentaires. C&#x27;est aussi le moment d&#x27;élaborer les premiers éléments des feuilles de style utilisées.
+  </li>
+</ul>
+
+<ol start="8">
+  <li>On écrit ensuite la logique applicative de l&#x27;application :
+  </li>
+</ol>
+<ul>
+  <li>Le contrôleur ou programme principal gère en général plusieurs actions. Il faut que dans les requêtes qui lui parviennent l&#x27;action à accomplir soit définie. Cela peut se faire au moyen d&#x27;un paramètre de la requête que nous appellerons ici <b>action</b> :
+    <ul>
+      <li>si la requête provient d&#x27;un formulaire (&lt;form&gt;), ce paramètre peut être un paramètre caché du formulaire : 
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">form</span> <span class="err">...</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/C/main.php&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span>  <span class="err">...</span><span class="p">&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;action&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;uneAction&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>...
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div>
+<ul>
+  <li>(suite)
+    <ul>
+      <li>si la requête provient d&#x27;un lien, on peut paramétrer celui-ci :
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a> <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/C/main.php?action=uneAction&quot;</span><span class="p">&gt;</span>lien<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Le contrôleur peut commencer par lire la valeur de ce paramètre puis déléguer le traitement de la requête à un module chargé de traiter ce type de requête. Nous nous sommes placés ici dans le cas ou tout était contrôlé par un unique script appelé <strong>main.php</strong>. Si l&#x27;application doit traiter des actions <strong>action1</strong>, <strong>action2</strong>, ..., <strong>actionx</strong> on peut créer au sein du contrôleur une fonction par action. S&#x27;il y a beaucoup d&#x27;actions, on peut arriver à un contrôleur &quot;dinosaure&quot;. On peut aussi créer des scripts <strong>action1.php</strong>, <strong>action2.php</strong>, ...,<strong>actionx.php</strong> chargés de traiter chacune des actions. Le contrôleur devant traiter l&#x27;acton <strong>actionx</strong> se contentera de charger le code du script correspondant par une instruction du genre <strong>include &quot;actionx.php&quot;</strong>. L&#x27;avantage de cette méthode est qu&#x27;on travaille en-dehors du code du contrôleur. Chaque personne de l&#x27;équipe de développement peut ainsi travailler sur le script de traitement d&#x27;une action <strong>actionx</strong> de façon relativement indépendante. L&#x27;inclusion du code du script <strong>actionx.php</strong> dans le code du contrôleur au moment de l&#x27;exécution a également l&#x27;avantage d&#x27;alléger le code chargé en mémoire. Seul le code de traitement de l&#x27;action en cours est chargé. Cette inclusion de code fait que des variables du contrôleur peuvent entrer en collision avec celles du script de l&#x27;action. Nous verrons que nous pouvons faire en sorte de limiter les variables du contrôleur à quelques variables bien définies qu&#x27;il faudra alors éviter d&#x27;utiliser dans les scripts.</p>
+<ul>
+  <li>On cherchera systématiquement à isoler le code métier ou le code d&#x27;accès aux données persistantes dans des modules distincts. Le contrôleur est une sorte de chef d&#x27;équipe qui reçoit des demandes de ses clients (clients web) et qui les fait exécuter par les personnes les plus appropriées (les modules métier). Lors de l&#x27;écriture du contrôleur, on déterminera l&#x27;interface des modules métier à écrire. Cela si ces modules métier sont à construire. S&#x27;ils existent déjà, alors le contrôleur  s&#x27;adaptera à l&#x27;interface de ces modules existants.
+  </li>
+</ul>
+
+<ol start="9">
+  <li>On écrira le squelette des modules métier nécessaires au contrôleur. Par exemple, si celui-ci utilise un module <b>getCodes</b> rendant un tableau de chaînes de caractères, on peut se contenter dans un premier temps d&#x27;écrire :
+  </li>
+</ol>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">getCodes</span><span class="p">(){</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">array</span><span class="p">(</span><span class="s2">&quot;code1&quot;</span><span class="p">,</span><span class="s2">&quot;code2&quot;</span><span class="p">,</span><span class="s2">&quot;code3&quot;</span><span class="p">);</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
+</code></pre></div>
+<ol start="10">
+  <li>On peut alors passer aux tests du contrôleur et des scripts PHP associés :
+  </li>
+</ol>
+
+<ul>
+  <li>le contrôleur, les scripts d&#x27;actions, les modèles, les vues, les ressources nécessaires à l&#x27;application (images,...) sont placés dans le dossier <b>DC</b> associé au contexte <b>C</b> de l&#x27;application. 
+  </li>
+  <li>ceci fait, l&#x27;application est testée et les premières erreurs corrigées. Si <b>main.php</b> est le contrôleur et <b>C</b> le contexte de l&#x27;application, on demandera l&#x27;URL <b>http://localhost/C/main.php</b>. A la fin de cette phase, l&#x27;architecture de l&#x27;application est opérationnelle. Cette phase de test peut être délicate sachant qu&#x27;on n&#x27;a peu d&#x27;outils de débogage si on n&#x27;utilise pas des environnements de développement évolués et en général payants. On pourra s&#x27;aider d&#x27;instructions <b>echo &quot;message&quot;</b> qui écrivent dans le flux HTML envoyé au client et qui apparaissent donc dans la page web affichée par le navigateur.
+  </li>
+</ul>
+
+<ol start="11">
+  <li>On écrit enfin les classes métier dont a besoin le contrôleur. On a là en général le développement classique d&#x27;une classe PHP le plus souvent indépendant de toute application web. Elle sera tout d&#x27;abord testée en dehors de cet environnement, avec une application console par exemple. Lorsqu&#x27;une classe métier a été écrite, on l&#x27;intégre dans l&#x27;architecture de déploiement de l&#x27;application web et on teste sa correcte intégration. On procèdera ainsi pour chaque classe métier.
+  </li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://tahe.developpez.com" target="_blank">
+          https://tahe.developpez.com
+        </a>
+        <br>
+        Ce cours-tutoriel écrit par <strong>Serge Tahé</strong> est mis à disposition du public selon les termes de la
+        <em>Licence Creative Commons Attribution – Pas d’Utilisation Commerciale –
+        Partage dans les Mêmes Conditions 3.0 non transposé</em>.
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
